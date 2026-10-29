@@ -21,8 +21,8 @@ module WhatsappCloud
 
     def unsubscribe_app(account_id) = @graph.delete("#{account_id}/subscribed_apps")
 
-    # Puts the number on the Cloud API, which a number already there (`platform_type` CLOUD_API) doesn't need. `pin` becomes its two-step verification PIN, which a later registration
-    # of the same number needs again.
+    # Puts the number on the Cloud API, which a number already there (`platform_type` CLOUD_API) doesn't need.
+    # `pin` becomes its two-step verification PIN, which a later registration of the same number needs again.
     def register(phone_number_id, pin:)
       @graph.post("#{phone_number_id}/register", {messaging_product: "whatsapp", pin:})
     end

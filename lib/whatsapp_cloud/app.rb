@@ -1,5 +1,5 @@
 module WhatsappCloud
-  # SERVOS's Meta app. Its app access token (`app_id|app_secret`) may call `debug_token`; nothing it does acts on
+  # Your Tech Provider app. Its app access token (`app_id|app_secret`) may call `debug_token`; nothing it does acts on
   # a business's accounts.
   class App
     MANAGEMENT_SCOPE = "whatsapp_business_management"

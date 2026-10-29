@@ -17,7 +17,9 @@ token = app.exchange_code(params[:code]) # within 30 seconds of the signup finis
 app.granted_account_ids(token).each do |account_id|
   business = WhatsappCloud::Business.new(access_token: token)
   business.subscribe_app(account_id)
-  business.phone_numbers(account_id).each { business.register(it["id"], pin: "123456") }
+  business.phone_numbers(account_id).each do |number|
+    business.register(number["id"], pin: "123456") if number["platform_type"] == "NOT_APPLICABLE"
+  end
 end
 
 app.signature_valid?(body: request.raw_post, signature: request.headers["X-Hub-Signature-256"])

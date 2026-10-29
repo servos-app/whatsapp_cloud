@@ -22,6 +22,9 @@ module WhatsappCloud
 
     Change = Data.define(:account_id, :field, :value) do
       def phone_number_id = value.dig("metadata", "phone_number_id")
+
+      # The business removed the app's access to its account in Meta's Business Manager.
+      def partner_removed? = field == "account_update" && value["event"] == "PARTNER_REMOVED"
     end
   end
 end

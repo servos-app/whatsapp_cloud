@@ -21,5 +21,6 @@ class WhatsappCloud::WebhookTest < Minitest::Test
     assert_equal [["waba-1", "messages", "pn-1"], ["waba-2", "account_update", nil]],
       changes.map { [it.account_id, it.field, it.phone_number_id] }
     assert_equal changes, WhatsappCloud::Webhook.changes(JSON.parse(body))
+    assert_equal [false, true], changes.map(&:partner_removed?)
   end
 end

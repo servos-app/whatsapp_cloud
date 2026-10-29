@@ -11,9 +11,11 @@ module WhatsappCloud
     end
 
     # A webhook body groups changes by WhatsApp Business Account: `entry[].id` is the account, and each change's
-    # `value.metadata.phone_number_id` the number it concerns, when it concerns one.
+    # `value.metadata.phone_number_id` the number it concerns, when it concerns one. Takes the raw body or its parsed
+    # hash.
     def self.changes(body)
-      JSON.parse(body).fetch("entry", []).flat_map do |entry|
+      data = body.is_a?(String) ? JSON.parse(body) : body
+      data.fetch("entry", []).flat_map do |entry|
         entry.fetch("changes", []).map { Change.new(account_id: entry["id"], field: it["field"], value: it["value"] || {}) }
       end
     end
